@@ -1,5 +1,6 @@
 FROM nginx:latest
+RUN apt-get update
+RUN apt-get install curl vim -y
 ADD ./nginx.conf /etc/nginx/nginx.conf
 ADD ./default.conf /etc/nginx/conf.d/default.conf
-ADD ./start.sh /bin/start.sh
-CMD /bin/start.sh
+CMD /etc/init.d/nginx start && tail -f /var/log/nginx/access.log -f error.log
